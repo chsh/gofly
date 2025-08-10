@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class GoogleDriveConnection
-
   def get_file_from_url(url)
     uri = URI.parse(url)
     file_id = file_id_from_uri(uri)
