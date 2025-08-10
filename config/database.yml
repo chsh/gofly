@@ -12,7 +12,7 @@ development:
 
 test:
   <<: *default
-  url: postgres://root:root@db/test
+  url: <%= ENV.fetch("DATABASE_URL") { "postgres://root:root@db/test" } %>
 
 production:
   <<: *default
