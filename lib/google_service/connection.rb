@@ -9,11 +9,15 @@ class GoogleService::Connection
 
   def get_object(file_id)
     begin
-      meta = drive.get_file(file_id, supports_all_drives: true)
+      meta = get_meta(file_id)
       GoogleService::ObjectSelector.from(meta, service: self)
     rescue
       nil
     end
+  end
+
+  def get_meta(file_id)
+    drive.get_file(file_id, supports_all_drives: true)
   end
 
   def get_folder(folder_id)
