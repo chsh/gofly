@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_061614) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_074014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_061614) do
     t.index ["email"], name: "index_students_on_email", unique: true
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.string "type"
+    t.jsonb "attrs", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_submissions_on_student_id"
+    t.index ["type"], name: "index_submissions_on_type"
+  end
+
   add_foreign_key "course_students", "courses"
   add_foreign_key "course_students", "students"
+  add_foreign_key "submissions", "students"
 end
