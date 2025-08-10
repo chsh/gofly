@@ -26,7 +26,7 @@ class GoogleFormsController < ApplicationController
 
     respond_to do |format|
       if @google_form.save
-        format.html { redirect_to [@course, @google_form], notice: "Google form was successfully created." }
+        format.html { redirect_to [ @course, @google_form ], notice: "Google form was successfully created." }
         format.json { render :show, status: :created, location: @google_form }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class GoogleFormsController < ApplicationController
   def update
     respond_to do |format|
       if @google_form.update(google_form_params)
-        format.html { redirect_to [@course, @google_form], notice: "Google form was successfully updated.", status: :see_other }
+        format.html { redirect_to [ @course, @google_form ], notice: "Google form was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @google_form }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class GoogleFormsController < ApplicationController
     @google_form.destroy!
 
     respond_to do |format|
-      format.html { redirect_to [@course, :google_forms], notice: "Google form was successfully destroyed.", status: :see_other }
+      format.html { redirect_to [ @course, :google_forms ], notice: "Google form was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
