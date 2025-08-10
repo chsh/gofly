@@ -8,4 +8,10 @@ class GoogleService::Sheet < GoogleService::Base
       end
     end
   end
+
+  def values(range, raw: true)
+    response = service.sheets.get_spreadsheet_values id, range
+    return response if raw
+    response.values
+  end
 end

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class GoogleService::Base
-  def initialize(service, file_id)
+  def initialize(service, meta)
     @service = service
-    @file_id = file_id
+    @meta = meta
   end
-  attr_reader :service, :file_id
+  attr_reader :service, :meta
+
+  delegate :id, :kind, :mime_type, :name, to: :meta
 end
