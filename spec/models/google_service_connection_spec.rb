@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe GoogleDriveConnection, type: :model do
+RSpec.describe GoogleServiceConnection, type: :model do
   it 'can generate lot code' do
-    conn = GoogleDriveConnection.new
+    conn = GoogleServiceConnection.new
 
     uri1 = URI.parse("https://drive.google.com/file/d/1key/view?usp=drive_link")
     expect(conn.send(:file_id_from_uri, uri1)).to eq "1key"

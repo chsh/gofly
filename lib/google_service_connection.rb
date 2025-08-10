@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GoogleDriveConnection
+class GoogleServiceConnection
   def get_file_from_url(url)
     uri = URI.parse(url)
     file_id = file_id_from_uri(uri)
@@ -36,12 +36,25 @@ class GoogleDriveConnection
       drive
     end
   end
+
+  def sheets
+    @sheets ||= begin
+      authorizer = new_authorizer
+      authorizer.fetch_access_token!
+      sheets = Google::Apis::SheetsV4::SheetsService.new
+      sheets.authorization = authorizer
+      sheets
+    end
+  end
+  
   alias_method :client, :drive
 
   private
     def service_account_credential_io
-      s3 = S3File.new
-      content = s3.get("system/google-service-account-credential.json")
+      path = ENV("GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH")
+      raise "no GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH present." if path.blank?
+      raise "path=#{path} not found." unless File.exist?(path)
+      content = File.read(path)
       StringIO.new(content)
     end
 
