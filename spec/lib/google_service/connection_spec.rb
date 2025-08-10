@@ -24,7 +24,7 @@ RSpec.describe GoogleService::Connection, type: :model do
     expect(conn.send(:file_id_from_uri, uri5)).to eq "1Key"
 
     # real example 1
-    uri6 = URI.parse("https://drive.google.com/drive/folders/12-_rMEHg9nU6I2f43rCJPvqF8zjOdk3poCA2s9Iqsc8_E2qgqsSQBJMz-Ajylrw2Pkbt?usp=drive_link")
-    expect(conn.send(:file_id_from_uri, uri6)).to eq "12-_rMEHg9nU6I2f43rCJPvqF8zjOdk3poCA2s9Iqsc8_E2qgqsSQBJMz-Ajylrw2Pkbt"
+    uri6 = URI.parse("https://drive.google.com/drive/folders/1a-_rMEHg9nU6IoCA2s9Iqsc8_E2qgqsSQBJMz-Ajylrk?usp=drive_link")
+    expect(conn.send(:file_id_from_uri, uri6)).to eq "1a-_rMEHg9nU6IoCA2s9Iqsc8_E2qgqsSQBJMz-Ajylrk"
   end
 end
