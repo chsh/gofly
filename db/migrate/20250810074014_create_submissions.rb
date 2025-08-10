@@ -6,7 +6,7 @@ class CreateSubmissions < ActiveRecord::Migration[8.0]
       t.jsonb :attrs, default: {}
 
       t.timestamps
-      
+
       t.index :type
     end
   end
