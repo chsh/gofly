@@ -7,8 +7,10 @@ class Course < ApplicationRecord
   has_many :google_forms, dependent: :destroy
 
   concerning :Linkable do
-    def link_student(student, code)
-      self.course_students.where(student: student).first_or_create(code: code)
+    def link_student(student, code:, num: nil)
+      self.course_students.where(student: student).first_or_create(code: code, num: num)
     end
   end
+
+  scope :recently_created, -> { order(created_at: :desc) }
 end

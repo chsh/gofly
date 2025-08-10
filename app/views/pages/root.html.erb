@@ -1,0 +1,28 @@
+<div class="w-full">
+  <div class="block">
+    <h1 class="font-bold text-4xl">GoFly - Google Workspace統合学習管理システム</h1>
+    <p>GoflyはGoogle Workspaceサービスと統合されたRuby on Rails学習管理システムで、Google Drive、Sheets、Formsを通じてコース、学生、教育コンテンツを管理します。</p>
+  </div>
+
+  <div class="block">
+    <h2 class="font-bold text-2xl">Courses</h2>
+    <ul>
+      <% Course.find_each do |course| %>
+        <li>
+          <%= link_to course.name, course %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2 class="font-bold text-2xl">Students</h2>
+    <ul>
+      <% Student.recently_created.limit(3).each do |student| %>
+        <li>
+          <%= link_to student.name, student %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
