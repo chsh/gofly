@@ -65,6 +65,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.expect(student: [ :id, :email, :name, :name_reading ])
+      params.expect(student: [ :id, :email, :name, :name_reading, :description ])
     end
 end
