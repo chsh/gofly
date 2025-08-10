@@ -1,6 +1,6 @@
 class GoogleFilesController < ApplicationController
   before_action :set_course
-  before_action :set_google_file, only: %i[ show edit update destroy ]
+  before_action :set_google_file, only: %i[ show download edit update destroy ]
 
   # GET /google_files or /google_files.json
   def index
@@ -9,6 +9,10 @@ class GoogleFilesController < ApplicationController
 
   # GET /google_files/1 or /google_files/1.json
   def show
+  end
+
+  def download
+    send_data @google_file.download, filename: @google_file.meta.name
   end
 
   # GET /google_files/new
