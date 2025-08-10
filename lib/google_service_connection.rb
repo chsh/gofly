@@ -46,7 +46,7 @@ class GoogleServiceConnection
       sheets
     end
   end
-  
+
   alias_method :client, :drive
 
   private
