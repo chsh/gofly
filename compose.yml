@@ -3,10 +3,11 @@ services:
     build:
       context: .
       dockerfile: ./dev/Dockerfile
-    command: bundle exec foreman start -f ${PROCFILE:-./Procfile.dev}
-    # command: tail -f /dev/null
+    # command: bundle exec foreman start -f ${PROCFILE:-./Procfile.dev}
+    command: tail -f /dev/null
     volumes:
       - .:/rails
+      - bundle-data:/usr/local/bundle
       - ../res:/res
     depends_on:
       - db
@@ -17,7 +18,7 @@ services:
     image: postgres
     volumes:
       - postgres:/var/lib/postgresql/data
-      - .:/app
+      - .:/rails
       - ../res:/res
     environment:
       POSTGRES_USER: root
@@ -27,4 +28,5 @@ services:
     user: root
 
 volumes:
+  bundle-data:
   postgres:
