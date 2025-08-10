@@ -3,6 +3,7 @@ class Course < ApplicationRecord
   has_many :students, through: :course_students
 
   has_many :google_sheets, dependent: :destroy
+  has_many :google_files, dependent: :destroy
   has_many :google_forms, dependent: :destroy
 
   concerning :Linkable do

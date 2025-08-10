@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :course_students
   resources :courses do
     resources :google_sheets
+    resources :google_files
     resources :google_forms do
       resources :google_form_responses, only: [ :index, :show ]
     end
