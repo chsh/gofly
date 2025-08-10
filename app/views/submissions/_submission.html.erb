@@ -3,4 +3,11 @@
     <strong class="block font-medium mb-1">Type:</strong>
     <%= submission.type %>
   </div>
+  <div>
+    <strong class="block font-medium mb-1">File:</strong>
+    <% if submission.file.presnet? %>
+      <%= link_to submission.file.filename,
+                  rails_blob_path(submission.file, disposition: "attachment") %>
+    <% end %>
+  </div>
 </div>

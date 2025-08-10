@@ -69,6 +69,6 @@ class SubmissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.expect(submission: [ :student_id, :type, :attrs ])
+      params.expect(submission: [ :file ])
     end
 end
