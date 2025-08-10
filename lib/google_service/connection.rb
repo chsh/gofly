@@ -10,12 +10,7 @@ class GoogleService::Connection
   def get_object(file_id)
     begin
       meta = drive.get_file(file_id, supports_all_drives: true)
-      sio = StringIO.new
-      drive.get_file(file_id, supports_all_drives: true, download_dest: sio)
-      {
-        meta: meta.to_h,
-        content: sio.string
-      }
+      GoogleService::ObjectSelector.from(meta)
     rescue
       nil
     end
@@ -53,9 +48,9 @@ class GoogleService::Connection
     return nil unless uri.scheme == "https"
     return nil unless uri.host.present?
     return nil unless uri.host.in?(%w( drive.google.com docs.google.com )) 
-    return $1 if uri.path =~ /\/d\/(.+?)\//
-    return $1 if uri.query =~ /\bd=(.+?)\b/
-    return $1 if uri.path =~ /\/folders\/(.+?)\b/
+    return $1 if uri.path =~ /\/d\/([a-zA-Z\d][a-zA-Z\d\-_]+)\//
+    return $1 if uri.query =~ /\bd=([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
+    return $1 if uri.path =~ /\/folders\/([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
     nil
   end
 
