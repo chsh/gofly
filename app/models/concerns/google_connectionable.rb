@@ -7,7 +7,7 @@ concern :GoogleConnectionable do
   def google_connection
     @google_connection ||= GoogleService::Connection.new
   end
-  
+
   def meta
     @meta ||= google_connection.get_meta(self.id)
   end
