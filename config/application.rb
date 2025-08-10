@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module GoFlying
   class Application < Rails::Application
     # For TZ
-    config.time_zone = 'Tokyo'
+    config.time_zone = "Tokyo"
 
     # For generator
     config.generators do |g|
