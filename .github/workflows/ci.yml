@@ -90,6 +90,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
           # REDIS_URL: redis://localhost:6379/0
+          SERVICE_HOST: https://example.com
         run: bin/rails db:create spec
 
       - name: Keep screenshots from failed system tests
