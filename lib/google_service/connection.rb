@@ -47,7 +47,7 @@ class GoogleService::Connection
     uri = uri_from(uri_or_string)
     return nil unless uri.scheme == "https"
     return nil unless uri.host.present?
-    return nil unless uri.host.in?(%w( drive.google.com docs.google.com )) 
+    return nil unless uri.host.in?(%w[ drive.google.com docs.google.com ])
     return $1 if uri.path =~ /\/d\/([a-zA-Z\d][a-zA-Z\d\-_]+)\//
     return $1 if uri.query =~ /\bd=([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
     return $1 if uri.path =~ /\/folders\/([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
