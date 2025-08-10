@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: "pages#root"
+
   resources :course_students
   resources :courses do
     resources :google_sheets

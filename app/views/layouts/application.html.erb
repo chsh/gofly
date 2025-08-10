@@ -23,8 +23,11 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <div class="w-full">
+    <%= link_to "top", root_path %>
+  </div>
+  <main class="container mx-auto mt-28 px-5 flex">
+    <%= yield %>
+  </main>
   </body>
 </html>

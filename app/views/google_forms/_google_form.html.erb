@@ -1,7 +1,7 @@
 <div id="<%= dom_id google_form %>" class="w-full sm:w-auto my-5 space-y-5">
   <div>
     <strong class="block font-medium mb-1">Course:</strong>
-    <%= google_form.course_id %>
+    <%= link_to google_form.course.name, google_form.course %>
   </div>
   <div>
     <strong class="block font-medium mb-1">Url:</strong>

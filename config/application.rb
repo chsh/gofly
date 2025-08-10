@@ -26,6 +26,11 @@ module GoFly
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    if defined? Rails::Console
+      dirs = Dir.glob("#{Rails.root}/contrib/*/")
+      config.autoload_paths += dirs
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
