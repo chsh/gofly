@@ -51,8 +51,9 @@ class GoogleServiceConnection
 
   private
     def service_account_credential_io
-      path = ENV("GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH")
+      path = ENV["GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH"]
       raise "no GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH present." if path.blank?
+      path = Rails.root.join(path) unless path.starts_with?("/")
       raise "path=#{path} not found." unless File.exist?(path)
       content = File.read(path)
       StringIO.new(content)

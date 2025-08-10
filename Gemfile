@@ -68,6 +68,7 @@ group :development, :test do
   gem "foreman"
   gem "factory_bot_rails"
   gem "rspec-rails", "~> 8.0.0"
+  gem "dotenv-rails"
 end
 
 gem "google-apis-drive_v3"
