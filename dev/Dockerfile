@@ -2,8 +2,8 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t go_flying .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name go_flying go_flying
+# docker build -t go_fly .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name go_fly go_fly
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
