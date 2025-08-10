@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_081240) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_123704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,44 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_081240) do
     t.index ["attrs"], name: "index_courses_on_attrs", using: :gin
   end
 
+  create_table "google_form_responses", force: :cascade do |t|
+    t.string "google_form_id", null: false
+    t.integer "index", null: false
+    t.jsonb "response", null: false
+    t.string "digest", null: false
+    t.datetime "submitted_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["digest"], name: "index_google_form_responses_on_digest"
+    t.index ["google_form_id", "index"], name: "index_google_form_responses_on_google_form_id_and_index", unique: true
+    t.index ["response"], name: "index_google_form_responses_on_response", using: :gin
+    t.index ["submitted_at"], name: "index_google_form_responses_on_submitted_at"
+  end
+
+  create_table "google_forms", id: :string, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.string "url", null: false
+    t.string "name"
+    t.text "description"
+    t.jsonb "attrs", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attrs"], name: "index_google_forms_on_attrs", using: :gin
+    t.index ["course_id"], name: "index_google_forms_on_course_id"
+  end
+
+  create_table "google_sheets", id: :string, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.string "url", null: false
+    t.string "name"
+    t.text "description"
+    t.jsonb "attrs", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attrs"], name: "index_google_sheets_on_attrs", using: :gin
+    t.index ["course_id"], name: "index_google_sheets_on_course_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "email", null: false
     t.string "name"
@@ -90,5 +128,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_081240) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "course_students", "courses"
   add_foreign_key "course_students", "students"
+  add_foreign_key "google_form_responses", "google_forms"
+  add_foreign_key "google_forms", "courses"
+  add_foreign_key "google_sheets", "courses"
   add_foreign_key "submissions", "students"
 end
