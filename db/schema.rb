@@ -40,6 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_061614) do
     t.string "email", null: false
     t.string "name"
     t.string "name_reading"
+    t.text "description"
     t.jsonb "attrs", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

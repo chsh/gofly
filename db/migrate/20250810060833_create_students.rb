@@ -4,6 +4,7 @@ class CreateStudents < ActiveRecord::Migration[8.0]
       t.string :email, null: false, index: { unique: true }
       t.string :name
       t.string :name_reading
+      t.text :description
       t.jsonb :attrs, default: {}
 
       t.timestamps
