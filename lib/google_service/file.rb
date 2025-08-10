@@ -8,4 +8,10 @@ class GoogleService::File < GoogleService::Base
       end
     end
   end
+
+  def download
+    sio = StringIO.new
+    service.drive.get_file(id, supports_all_drives: true, download_dest: sio)
+    sio.string
+  end
 end
