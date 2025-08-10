@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-class GoogleServiceConnection
-  def get_file_from_url(url)
-    uri = URI.parse(url)
-    file_id = file_id_from_uri(uri)
+class GoogleService::Connection
+  def object_from_url(uri_or_string)
+    file_id = file_id_from_uri(uri_or_string)
     return nil if file_id.blank?
-    get_file(file_id)
+    get_object(file_id)
   end
 
-  def get_file(file_id)
+  def get_object(file_id)
     begin
       meta = drive.get_file(file_id, supports_all_drives: true)
       sio = StringIO.new
@@ -49,6 +48,17 @@ class GoogleServiceConnection
 
   alias_method :client, :drive
 
+  def file_id_from_uri(uri_or_string)
+    uri = uri_from(uri_or_string)
+    return nil unless uri.scheme == "https"
+    return nil unless uri.host.present?
+    return nil unless uri.host.in?(%w( drive.google.com docs.google.com )) 
+    return $1 if uri.path =~ /\/d\/(.+?)\//
+    return $1 if uri.query =~ /\bd=(.+?)\b/
+    return $1 if uri.path =~ /\/folders\/(.+?)\b/
+    nil
+  end
+
   private
     def service_account_credential_io
       path = ENV["GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_PATH"]
@@ -66,12 +76,11 @@ class GoogleServiceConnection
           scope: Google::Apis::DriveV3::AUTH_DRIVE_READONLY)
     end
 
-    def file_id_from_uri(uri)
-      return nil unless uri.scheme == "https"
-      return nil unless uri.host == "drive.google.com"
-      return $1 if uri.path =~ /\/d\/(.+?)\//
-      return $1 if uri.query =~ /\bd=(.+?)\b/
-      return $1 if uri.path =~ /\/folders\/(.+?)\b/
-      nil
+    def uri_from(uri_or_string)
+      case uri_or_string
+      when URI then uri_or_string
+      when String then URI.parse(uri_or_string)
+      else raise "invalid uri_or_string: class=#{uri_or_string.class} value=#{uri_or_string}"
+      end
     end
 end

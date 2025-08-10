@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe GoogleServiceConnection, type: :model do
+RSpec.describe GoogleService::Connection, type: :model do
   it 'can generate lot code' do
-    conn = GoogleServiceConnection.new
+    conn = GoogleService::Connection.new
 
     uri1 = URI.parse("https://drive.google.com/file/d/1key/view?usp=drive_link")
     expect(conn.send(:file_id_from_uri, uri1)).to eq "1key"
@@ -22,5 +22,9 @@ RSpec.describe GoogleServiceConnection, type: :model do
     # can get spreadsheet(file) id
     uri5 = URI.parse("https://drive.google.com/spreadsheet?d=1Key&usp=drive_link")
     expect(conn.send(:file_id_from_uri, uri5)).to eq "1Key"
+
+    # real example 1
+    uri6 = URI.parse("https://docs.google.com/spreadsheets/d/1iHGu4_gEdS9y5gZSKTbXhFaF1TWemoYmNWTDzvjc/edit?gid=0#gid=0")
+    expect(conn.send(:file_id_from_uri, uri6)).to eq "1iHGu4_gEdS9y5gZSKTbXhFaF1TWemoYmNWTDzvjc"
   end
 end
