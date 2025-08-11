@@ -28,8 +28,9 @@ class GoogleFormResponse < ApplicationRecord
       def scan_google_file_from_response
         con = GoogleService::Connection.new
         self.response.values.each do |value|
-          file_id = con.file_id_from_uri(value)
-          return con.get_object(file_id) if file_id.present?
+          if con.file_id_from_uri(value).present?
+            return GoogleFile.find_or_create_by(url: value, course: course)
+          end
         end
         nil
       end
