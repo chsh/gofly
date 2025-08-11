@@ -17,7 +17,7 @@ class GoogleFormResponsesController < ApplicationController
     end
 
     def set_google_form
-      @google_form = @course.google_forms.find(params.expect(:google_sheet_id))
+      @google_form = @course.google_forms.find(params.expect(:google_form_id))
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -27,6 +27,6 @@ class GoogleFormResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def google_form_response_params
-      params.expect(google_form_response: [ :google_sheet_id, :index, :response, :digest ])
+      params.expect(google_form_response: [ :index, :response ])
     end
 end

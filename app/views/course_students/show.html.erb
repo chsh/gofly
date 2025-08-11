@@ -20,7 +20,7 @@
             <%= link_to response.google_file.name,
                         download_course_google_file_path(@course, response.google_file, filename: "#{@course_student.num}-#{@course_student.code}-#{@course_student.student.id}#{ext}") %>
           <% else %>
-            No google file.
+            <%= link_to "show response", [@course, response.google_form, response] %>
           <% end %>
       <% end %>
     </ul>

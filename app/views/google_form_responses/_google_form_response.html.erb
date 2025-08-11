@@ -1,7 +1,7 @@
 <div id="<%= dom_id google_form_response %>" class="w-full sm:w-auto my-5 space-y-5">
   <div>
-    <strong class="block font-medium mb-1">Google sheet:</strong>
-    <%= google_form_response.google_sheet_id %>
+    <strong class="block font-medium mb-1">Google form:</strong>
+    <%= google_form_response.google_form.name %>
   </div>
   <div>
     <strong class="block font-medium mb-1">Index:</strong>
@@ -9,7 +9,24 @@
   </div>
   <div>
     <strong class="block font-medium mb-1">Response:</strong>
-    <%= google_form_response.response %>
+    <table>
+      <% google_form_response.response.keys.sort.each do |key| %>
+        <% value = google_form_response.response[key] %>
+        <tr>
+          <td>
+            <div class="font-bold block">
+              <%= key %>
+            </div>
+            <div>
+              <% value.to_s.strip.split("\n").each do |line| %>
+                <%= line %>
+                <br>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
   <div>
     <strong class="block font-medium mb-1">Digest:</strong>
