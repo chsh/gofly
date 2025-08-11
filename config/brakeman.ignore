@@ -3,13 +3,13 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "ce85ea2cf2531e84dae5e75046248173f5be30779318fe872d657a3de23a0f70",
+      "fingerprint": "cedcdb3698039388f6a309ee14f2e05d9822fe5df33f9dc62f67f515cbcbcb01",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/google_form_responses/show.html.erb",
       "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_sheet_id)).responses.find(params.expect(:id)), { :locals => ({ :course => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_sheet_id)).responses.find(params.expect(:id)) }) })",
+      "code": "render(action => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_form_id)).responses.find(params.expect(:id)), { :locals => ({ :course => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_form_id)).responses.find(params.expect(:id)) }) })",
       "render_path": [
         {
           "type": "controller",
