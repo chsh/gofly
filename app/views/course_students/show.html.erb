@@ -9,7 +9,22 @@
 
   <%= render @course_student %>
 
-  <%= link_to "Edit this course student", edit_course_student_path(@course_student), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to course students", course_students_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this course student", @course_student, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+  <div>
+    <h2 class="font-bold text-2xl">Google Form Responses</h2>
+    <ul>
+      <% @course_student.google_form_responses.each do |response| %>
+        <li>
+          <%= response.submitted_at %>:
+          <% if response.google_file.present? %>
+            <%= link_to response.google_file.name, download_course_google_file_path(@course, response.google_file) %>
+          <% else %>
+            No google file.
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= link_to "Edit this course student", edit_course_course_student_path(@course, @course_student), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to course students", [@course, :course_students], class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= button_to "Destroy this course student", [@course, @course_student], method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
 </div>

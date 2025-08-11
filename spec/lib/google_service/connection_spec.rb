@@ -29,5 +29,14 @@ RSpec.describe GoogleService::Connection, type: :model do
 
     uri7 = URI.parse("https://drive.google.com/open?id=14D4o-YW69Oufim")
     expect(conn.send(:file_id_from_uri, uri7)).to eq "14D4o-YW69Oufim"
+
+    # nil returns nil
+    expect(conn.send(:file_id_from_uri, nil)).to be_nil
+
+    # blank returns nil
+    expect(conn.send(:file_id_from_uri, "")).to be_nil
+
+    # no url returns nil
+    expect(conn.send(:file_id_from_uri, "(12345)")).to be_nil
   end
 end

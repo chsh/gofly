@@ -1,5 +1,6 @@
 class GoogleFormResponse < ApplicationRecord
   belongs_to :google_form
+  belongs_to :student, optional: true
 
   concerning :Creatable do
     class_methods do
@@ -13,5 +14,25 @@ class GoogleFormResponse < ApplicationRecord
         end
       end
     end
+  end
+
+  delegate :course, to: :google_form
+
+  concerning :GoogleFileDeetectable do
+    def google_file
+      return @google_file if defined? @google_file
+      @google_file = scan_google_file_from_response
+    end
+
+    private
+      def scan_google_file_from_response
+        con = GoogleService::Connection.new
+        self.response.values.each do |value|
+          if con.file_id_from_uri(value).present?
+            return GoogleFile.find_or_create_by(url: value, course: course)
+          end
+        end
+        nil
+      end
   end
 end

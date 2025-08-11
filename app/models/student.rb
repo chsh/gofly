@@ -4,4 +4,6 @@ class Student < ApplicationRecord
   has_many :submissions, dependent: :destroy
 
   scope :recently_created, -> { order(created_at: :desc) }
+
+  has_many :google_form_responses, dependent: :nullify
 end

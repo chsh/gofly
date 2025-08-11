@@ -48,7 +48,9 @@ class GoogleService::Connection
   alias_method :client, :drive
 
   def file_id_from_uri(uri_or_string)
+    return nil if uri_or_string.nil?
     uri = uri_from(uri_or_string)
+    return nil if uri.nil?
     return nil unless uri.scheme == "https"
     return nil unless uri.host.present?
     return nil unless uri.host.in?(%w[ drive.google.com docs.google.com ])
@@ -77,8 +79,14 @@ class GoogleService::Connection
 
     def uri_from(uri_or_string)
       case uri_or_string
-      when URI then uri_or_string
-      when String then URI.parse(uri_or_string)
+      when URI
+        uri_or_string
+      when String
+        begin
+          URI.parse(uri_or_string)
+        rescue URI::InvalidURIError
+          nil
+        end
       else raise "invalid uri_or_string: class=#{uri_or_string.class} value=#{uri_or_string}"
       end
     end
