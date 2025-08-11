@@ -1,18 +1,19 @@
 <div id="<%= dom_id course_student %>" class="w-full sm:w-auto my-5 space-y-5">
   <div>
     <strong class="block font-medium mb-1">Course:</strong>
-    <%= course_student.course_id %>
+    <%= link_to course_student.course.name, course_student.course %>
   </div>
   <div>
     <strong class="block font-medium mb-1">Student:</strong>
-    <%= course_student.student_id %>
+    <%= course_student.student_id %>: <%= course_student.student.name %>
   </div>
   <div>
     <strong class="block font-medium mb-1">Code:</strong>
     <%= course_student.code %>
   </div>
+
   <div>
-    <strong class="block font-medium mb-1">Attrs:</strong>
-    <%= course_student.attrs %>
+    <strong class="block font-medium mb-1">Num:</strong>
+    <%= course_student.num %>
   </div>
 </div>

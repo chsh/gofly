@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_213728) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_001301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,9 +84,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_213728) do
     t.datetime "submitted_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
     t.index ["digest"], name: "index_google_form_responses_on_digest"
     t.index ["google_form_id", "index"], name: "index_google_form_responses_on_google_form_id_and_index", unique: true
     t.index ["response"], name: "index_google_form_responses_on_response", using: :gin
+    t.index ["student_id"], name: "index_google_form_responses_on_student_id"
     t.index ["submitted_at"], name: "index_google_form_responses_on_submitted_at"
   end
 
@@ -142,6 +144,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_213728) do
   add_foreign_key "course_students", "students"
   add_foreign_key "google_files", "courses"
   add_foreign_key "google_form_responses", "google_forms"
+  add_foreign_key "google_form_responses", "students"
   add_foreign_key "google_forms", "courses"
   add_foreign_key "google_sheets", "courses"
   add_foreign_key "submissions", "students"
