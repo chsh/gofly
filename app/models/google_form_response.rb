@@ -29,7 +29,12 @@ class GoogleFormResponse < ApplicationRecord
         con = GoogleService::Connection.new
         self.response.values.each do |value|
           if con.file_id_from_uri(value).present?
-            return GoogleFile.find_or_create_by(url: value, course: course)
+            gf = begin
+              GoogleFile.find_or_create_by(url: value, course: course)
+            rescue
+              nil
+            end
+            return gf if gf.present?
           end
         end
         nil

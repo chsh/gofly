@@ -12,7 +12,7 @@ class GoogleFilesController < ApplicationController
   end
 
   def download
-    send_data @google_file.download, filename: @google_file.meta.name
+    send_data @google_file.download, filename: (params[:filename] || @google_file.meta.name)
   end
 
   # GET /google_files/new
