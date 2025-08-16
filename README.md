@@ -155,3 +155,5 @@ kamal deploy
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+学籍番号：2477350010　が追加
