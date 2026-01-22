@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_11_001301) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_22_002326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -72,8 +72,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_001301) do
     t.jsonb "attrs", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
     t.index ["attrs"], name: "index_google_files_on_attrs", using: :gin
     t.index ["course_id"], name: "index_google_files_on_course_id"
+    t.index ["key"], name: "index_google_files_on_key"
   end
 
   create_table "google_form_responses", force: :cascade do |t|
@@ -100,8 +102,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_001301) do
     t.jsonb "attrs", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
     t.index ["attrs"], name: "index_google_forms_on_attrs", using: :gin
     t.index ["course_id"], name: "index_google_forms_on_course_id"
+    t.index ["key"], name: "index_google_forms_on_key"
   end
 
   create_table "google_sheets", id: :string, force: :cascade do |t|
@@ -112,8 +116,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_001301) do
     t.jsonb "attrs", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key"
     t.index ["attrs"], name: "index_google_sheets_on_attrs", using: :gin
     t.index ["course_id"], name: "index_google_sheets_on_course_id"
+    t.index ["key"], name: "index_google_sheets_on_key"
   end
 
   create_table "students", force: :cascade do |t|
