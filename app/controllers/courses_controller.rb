@@ -25,6 +25,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
+        create_google_resources
         format.html { redirect_to @course, notice: "Course was successfully created." }
         format.json { render :show, status: :created, location: @course }
       else
@@ -38,6 +39,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
+        create_google_resources
         format.html { redirect_to @course, notice: "Course was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @course }
       else
@@ -66,5 +68,23 @@ class CoursesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def course_params
       params.expect(course: [ :name, :year, :season, :description, :attrs ])
+    end
+
+    def create_google_resources
+      create_google_form_if_needed("submission", params[:submission_url])
+      create_google_form_if_needed("test", params[:test_url])
+      create_google_sheet_if_needed("result", params[:result_url])
+    end
+
+    def create_google_form_if_needed(key, url)
+      return if url.blank?
+      return if @course.google_forms.exists?(key: key)
+      @course.google_forms.create!(url: url, key: key)
+    end
+
+    def create_google_sheet_if_needed(key, url)
+      return if url.blank?
+      return if @course.google_sheets.exists?(key: key)
+      @course.google_sheets.create!(url: url, key: key)
     end
 end

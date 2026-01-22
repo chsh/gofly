@@ -31,6 +31,42 @@
     <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": course.errors[:description].none?, "border-red-400 focus:outline-red-600": course.errors[:description].any?}] %>
   </div>
 
+  <div class="my-5">
+    <%= form.label :課題提出URL %>
+    <% submission_form = course.google_forms.find_by(key: 'submission') %>
+    <% if submission_form %>
+      <div class="mt-2 p-3 bg-gray-50 rounded-md">
+        <a href="<%= submission_form.url %>" target="_blank" class="text-blue-600 hover:underline"><%= submission_form.url %></a>
+      </div>
+    <% else %>
+      <%= text_field_tag 'submission_url', nil, placeholder: 'Google Form URL', class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    <% end %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :テストURL %>
+    <% test_form = course.google_forms.find_by(key: 'test') %>
+    <% if test_form %>
+      <div class="mt-2 p-3 bg-gray-50 rounded-md">
+        <a href="<%= test_form.url %>" target="_blank" class="text-blue-600 hover:underline"><%= test_form.url %></a>
+      </div>
+    <% else %>
+      <%= text_field_tag 'test_url', nil, placeholder: 'Google Form URL', class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    <% end %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :採点結果URL %>
+    <% result_sheet = course.google_sheets.find_by(key: 'result') %>
+    <% if result_sheet %>
+      <div class="mt-2 p-3 bg-gray-50 rounded-md">
+        <a href="<%= result_sheet.url %>" target="_blank" class="text-blue-600 hover:underline"><%= result_sheet.url %></a>
+      </div>
+    <% else %>
+      <%= text_field_tag 'result_url', nil, placeholder: 'Google Sheet URL', class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    <% end %>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>

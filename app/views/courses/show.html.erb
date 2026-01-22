@@ -27,7 +27,7 @@
     <ul>
       <% @course.course_students.each do |cs| %>
         <li>
-          <%= link_to cs.student.name, [@course, cs] %>
+          <%= link_to [cs.num, cs.student.id, cs.student.name].join(' '), [@course, cs] %>
         </li>
       <% end %>
     </ul>
