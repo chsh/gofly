@@ -71,9 +71,9 @@ class CoursesController < ApplicationController
     end
 
     def create_google_resources
-      create_google_form_if_needed('submission', params[:submission_url])
-      create_google_form_if_needed('test', params[:test_url])
-      create_google_sheet_if_needed('result', params[:result_url])
+      create_google_form_if_needed("submission", params[:submission_url])
+      create_google_form_if_needed("test", params[:test_url])
+      create_google_sheet_if_needed("result", params[:result_url])
     end
 
     def create_google_form_if_needed(key, url)
