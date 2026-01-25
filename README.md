@@ -1,3 +1,4 @@
+# こんにちは
 # GoFly - Learning Management System with Google Workspace Integration
 
 [日本語版 / Japanese Version](README_ja.md)
