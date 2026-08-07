@@ -73,3 +73,6 @@ end
 
 gem "google-apis-drive_v3"
 gem "google-apis-sheets_v4"
+
+# Ruby 3.4からdefault gemでなくなったため明示
+gem "csv"

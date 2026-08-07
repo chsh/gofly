@@ -25,22 +25,6 @@ class GoogleService::Connection
     drive.list_files q: query, fields: "files(id, kind, mime_type, name, createdTime, modifiedTime)"
   end
 
-  # CSVファイルをGoogleスプレッドシートに変換してfolder_id直下に作成する。
-  # 0バイトのCSVは変換アップロードできないため、空のスプレッドシートを作成する。
-  def create_spreadsheet_from_csv(folder_id:, name:, csv_path:)
-    metadata = Google::Apis::DriveV3::File.new(
-      name: name,
-      mime_type: "application/vnd.google-apps.spreadsheet",
-      parents: [ folder_id ])
-    params = {
-      supports_all_drives: true,
-      fields: "id, kind, mime_type, name, createdTime, modifiedTime"
-    }
-    params.update(upload_source: csv_path.to_s, content_type: "text/csv") unless ::File.size(csv_path).zero?
-    meta = drive.create_file(metadata, **params)
-    GoogleService::ObjectSelector.from(meta, service: self)
-  end
-
   def drive
     @drive ||= begin
       authorizer = new_authorizer
