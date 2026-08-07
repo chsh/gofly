@@ -1,39 +1,6 @@
 {
   "ignored_warnings": [
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "cedcdb3698039388f6a309ee14f2e05d9822fe5df33f9dc62f67f515cbcbcb01",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/google_form_responses/show.html.erb",
-      "line": 10,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_form_id)).responses.find(params.expect(:id)), { :locals => ({ :course => Course.find(params.expect(:course_id)).google_forms.find(params.expect(:google_form_id)).responses.find(params.expect(:id)) }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "GoogleFormResponsesController",
-          "method": "show",
-          "line": 12,
-          "file": "app/controllers/google_form_responses_controller.rb",
-          "rendered": {
-            "name": "google_form_responses/show",
-            "file": "app/views/google_form_responses/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "google_form_responses/show"
-      },
-      "user_input": "params.expect(:id)",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    }
+
   ],
-  "brakeman_version": "7.1.0"
+  "brakeman_version": "8.0.5"
 }
