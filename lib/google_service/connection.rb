@@ -54,9 +54,11 @@ class GoogleService::Connection
     return nil unless uri.scheme == "https"
     return nil unless uri.host.present?
     return nil unless uri.host.in?(%w[ drive.google.com docs.google.com ])
-    return $1 if uri.path =~ /\/d\/([a-zA-Z\d][a-zA-Z\d\-_]+)\//
-    return $1 if uri.query =~ /\bi?d=([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
-    return $1 if uri.path =~ /\/folders\/([a-zA-Z\d][a-zA-Z\d\-_]+)\b/
+    # NOTE: 末尾に \b を置かないこと。ID が "-" で終わる場合、\b が末尾のハイフンを
+    # 単語境界外として切り落とし、不正な ID を返す。文字クラスが / & 等で自然に止まる。
+    return $1 if uri.path =~ /\/d\/([a-zA-Z\d][a-zA-Z\d\-_]+)(?:\/|\z)/
+    return $1 if uri.query =~ /\bi?d=([a-zA-Z\d][a-zA-Z\d\-_]+)/
+    return $1 if uri.path =~ /\/folders\/([a-zA-Z\d][a-zA-Z\d\-_]+)/
     nil
   end
 

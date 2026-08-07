@@ -30,6 +30,26 @@ RSpec.describe GoogleService::Connection, type: :model do
     uri7 = URI.parse("https://drive.google.com/open?id=14D4o-YW69Oufim")
     expect(conn.send(:file_id_from_uri, uri7)).to eq "14D4o-YW69Oufim"
 
+    # real example 2: id ends with a hyphen (must not be truncated)
+    uri8 = URI.parse("https://drive.google.com/open?id=1w4n-IQyI0wuS6fZggGp4TjhcQAskKvR-")
+    expect(conn.send(:file_id_from_uri, uri8)).to eq "1w4n-IQyI0wuS6fZggGp4TjhcQAskKvR-"
+
+    # id ends with a hyphen, followed by another query param
+    uri9 = URI.parse("https://drive.google.com/open?id=1w4n-IQyI0wuS6fZggGp4TjhcQAskKvR-&usp=drive_link")
+    expect(conn.send(:file_id_from_uri, uri9)).to eq "1w4n-IQyI0wuS6fZggGp4TjhcQAskKvR-"
+
+    # folder id ends with a hyphen
+    uri10 = URI.parse("https://drive.google.com/drive/folders/1AbcDef-?usp=drive_link")
+    expect(conn.send(:file_id_from_uri, uri10)).to eq "1AbcDef-"
+
+    # file id ends with a hyphen (/d/ pattern)
+    uri11 = URI.parse("https://drive.google.com/file/d/1AbcDef-/view?usp=drive_link")
+    expect(conn.send(:file_id_from_uri, uri11)).to eq "1AbcDef-"
+
+    # /d/ pattern without trailing slash
+    uri12 = URI.parse("https://drive.google.com/file/d/1AbcDef-")
+    expect(conn.send(:file_id_from_uri, uri12)).to eq "1AbcDef-"
+
     # nil returns nil
     expect(conn.send(:file_id_from_uri, nil)).to be_nil
 
